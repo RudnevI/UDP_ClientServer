@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -46,8 +48,13 @@ namespace UDP_ClientServer
 
                 byte[] buffer = new byte[1024];
                 SafeReceive(ref buffer);
-                Console.WriteLine(Encoding.UTF8.GetString(buffer));
 
+                string stringBuffer = Encoding.UTF8.GetString(buffer);
+
+             
+                User user = JsonConvert.DeserializeObject<User>(stringBuffer);
+
+                Console.WriteLine(user);
                 SafeSendAsync(buffer);
             }
            

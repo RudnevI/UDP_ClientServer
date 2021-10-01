@@ -42,16 +42,23 @@ namespace UDP_Client
 
         public void Receive()
         {
+            User user = UserService.FormUser();
+
             while (true)
             {
                 
                 
                 Console.Write("--> ");
-                byte[] buffer = Encoding.UTF8.GetBytes(Console.ReadLine());
+                user.Message = Console.ReadLine();
+                user.TimeSent = DateTime.Now;
+                string serialized = JsonConvert.SerializeObject(user);
+                byte[] buffer = Encoding.UTF8.GetBytes(serialized);
 
                 SafeSend(buffer);
                 SafeReceive(ref buffer);
-                Console.WriteLine(Encoding.UTF8.GetString(buffer));
+
+                user = JsonConvert.DeserializeObject<User>(Encoding.UTF8.GetString(buffer));
+                Console.WriteLine(user);
             }
 
 

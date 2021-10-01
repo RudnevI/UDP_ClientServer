@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,8 @@ namespace UDP_Client
             }
         }
 
+        
+
         private static void ResetCurrentAnswer()
         {
             CurrentAnswer = -1;
@@ -47,6 +50,7 @@ namespace UDP_Client
 
         private static void Send()
         {
+             
             _service.Receive();
         }
 
